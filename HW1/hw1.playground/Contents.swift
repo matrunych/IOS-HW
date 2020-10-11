@@ -19,7 +19,7 @@ struct Note {
     }
     
     mutating func makeFavourite(){
-        self.isFavourite = !self.isFavourite
+        self.isFavourite = !self.isFavourite // Hint: .toggle()
     }
     
     mutating func makeDeleted(){
@@ -85,12 +85,17 @@ class NoteDataManager{
         return nil
     }
     
+//    Comment: (Hint) .first(where:)
+//    func searchByName(name: String) -> Int? {
+//        notes.first(where: { $0.name == name })?.noteId
+//    }
+    
     func sortByNameDate(){
         self.notes = self.notes.sorted{n1, n2 in
-            return (n1.name.lowercased(), n1.creationDate) < (n2.name.lowercased(), n2.creationDate)}
+            return (n1.name.lowercased(), n1.creationDate) < (n2.name.lowercased(), n2.creationDate)} // Comment: in this case it's better to use .sort(by:)
     }
     
-    func isPresented(name: String) -> Bool{
+    func isPresented(name: String) -> Bool{ // Commets: .contains(where:)
         let results = self.notes.filter { $0.name == name }
         let exists = results.isEmpty == false
         return exists
